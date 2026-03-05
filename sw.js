@@ -1,11 +1,11 @@
-const CACHE_NAME = "spa-premium-v2";
+const CACHE_NAME = "spa-premium-v3";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
   "/manifest.json",
   "/biodata.html",
   "/grafik.html",
-  "/maps.html"
+  "/ritasi.html"
 ];
 
 // Install — cache static assets
