@@ -802,73 +802,55 @@
       opacity: .45;
     }
 
-    /* CONTENT AREA — tinggi auto sesuai isi */
-    #content {
+    /* CONTENT WRAPPER */
+    #content-wrap {
       width: 100%;
-      height: auto;
-      /* membesar sesuai konten */
-      min-height: 80px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-card);
-      padding: 18px 14px;
       position: relative;
-      overflow-x: hidden;
-      /* cegah melebar ke samping */
-      overflow-y: visible;
       margin-bottom: 8px;
-      word-break: break-word;
+      border-radius: var(--r-card);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+      min-height: 60px;
     }
 
-    #content::before {
+    #content-wrap::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 1px;
+      z-index: 1;
       background: linear-gradient(to right, transparent, rgba(201, 168, 76, .35), transparent);
+      pointer-events: none;
     }
 
-    /* semua elemen dalam content tidak boleh overflow */
-    #content * {
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-
-    #content img {
-      width: 100%;
-      height: auto;
+    #content-frame {
       display: block;
-    }
-
-    #content table {
       width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-      font-size: var(--fs-sm);
+      min-height: 60px;
+      border: none;
+      background: transparent;
+      overflow: hidden;
     }
 
-    #content td,
-    #content th {
-      word-break: break-word;
-      padding: 6px 4px;
-    }
-
-    #content iframe,
-    #content video,
-    #content canvas {
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-
-    .loading-state {
-      display: flex;
-      flex-direction: column;
+    #content-loading {
+      display: none;
+      position: absolute;
+      inset: 0;
       align-items: center;
       justify-content: center;
-      min-height: 80px;
+      flex-direction: column;
       gap: 12px;
+      background: var(--surface);
+      z-index: 5;
+      border-radius: var(--r-card);
+      min-height: 80px;
+    }
+
+    #content-loading.show {
+      display: flex;
     }
 
     .rings {
@@ -913,6 +895,7 @@
       justify-content: center;
       min-height: 80px;
       gap: 9px;
+      padding: 20px;
     }
 
     .err-ico {
@@ -1102,7 +1085,14 @@
       <div class="div-line"></div>
     </div>
 
-    <div id="content"></div>
+    <!-- Content: iframe wrapper, auto-resize sesuai isi -->
+    <div id="content-wrap">
+      <div id="content-loading">
+        <div class="rings"><span></span><span></span></div>
+        <span class="loading-txt">Memuat…</span>
+      </div>
+      <iframe id="content-frame" scrolling="no" title="Konten"></iframe>
+    </div>
   </div>
 
   <footer class="footer">
@@ -1236,27 +1226,162 @@
     let autoTimer = setInterval(() => goto(cur + 1), 5200);
     buildSlides();
     goto(0, false);
+    /* ── Content Loader — iframe dengan auto-resize ── */
     const cache = {};
+    const cfWrap = document.getElementById('content-wrap');
+    const cfLoad = document.getElementById('content-loading');
+    const cfFrame = document.getElementById('content-frame');
+    /* CSS normalisasi yang diinjeksi ke dalam iframe agar konten
+       tidak melebar ke samping dan gambar/tabel menyesuaikan lebar */
+    const INJECT_CSS = `
+      <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body {
+          margin: 0; padding: 0;
+          width: 100%; max-width: 100%;
+          overflow-x: hidden;
+          background: #0E1118;
+          color: #F0EDE8;
+          font-family: 'DM Sans', Arial, sans-serif;
+          font-size: 13px;
+          line-height: 1.6;
+          word-break: break-word;
+          /* penting: tidak ada overflow:hidden pada y agar iframe bisa auto-resize */
+          height: auto !important;
+          overflow-y: visible !important;
+        }
+        img { max-width: 100% !important; width: 100% !important; height: auto !important; display: block; }
+        table { width: 100% !important; max-width: 100% !important; table-layout: fixed; border-collapse: collapse; }
+        td, th { word-break: break-word; padding: 6px 4px; }
+        iframe, video, canvas { max-width: 100% !important; width: 100% !important; }
+        pre, code { white-space: pre-wrap; word-break: break-all; }
+        /* Photo grid fix */
+        #photo-container { display: flex !important; flex-wrap: wrap !important; justify-content: center !important; width: 100% !important; max-width: 100% !important; margin: 0 auto !important; padding: 8px !important; box-sizing: border-box !important; }
+        .photo-item { flex: 1 1 calc(50% - 12px) !important; min-width: calc(50% - 12px) !important; max-width: calc(50% - 12px) !important; margin: 5px !important; }
+        .photo-item img { width: 100% !important; height: auto !important; }
+        h1 { font-size: clamp(16px, 5vw, 22px) !important; word-break: break-word; }
+        h2 { font-size: clamp(14px, 4vw, 18px) !important; }
+        h3 { font-size: clamp(13px, 3.5vw, 16px) !important; }
+        p  { font-size: clamp(11px, 3vw, 14px) !important; }
+      </style>
+    `;
+    /* Resize iframe tingginya = tinggi konten di dalamnya */
+    function resizeFrame() {
+      try {
+        const doc = cfFrame.contentDocument || cfFrame.contentWindow.document;
+        if (!doc || !doc.body) return;
+        /* reset dulu agar shrink bisa terdeteksi */
+        cfFrame.style.height = '0px';
+        const h = doc.documentElement.scrollHeight || doc.body.scrollHeight;
+        cfFrame.style.height = h + 'px';
+      } catch (e) {}
+    }
+    /* Observer untuk konten yang berubah tinggi setelah load (gambar lazy, dll) */
+    let resizeObs = null;
     async function loadContent(page, tabEl) {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       if (tabEl) tabEl.classList.add('active');
-      const el = document.getElementById('content');
-      el.innerHTML = '<div class="loading-state"><div class="rings"><span></span><span></span></div><span class="loading-txt">Memuat…</span></div>';
-      if (cache[page]) {
-        el.innerHTML = cache[page];
-        return;
+      /* tampilkan loading */
+      cfLoad.classList.add('show');
+      cfFrame.style.height = '80px';
+      cfFrame.style.opacity = '0';
+      /* hentikan observer lama */
+      if (resizeObs) {
+        resizeObs.disconnect();
+        resizeObs = null;
       }
-      try {
-        const r = await fetch(page, {
-          cache: 'default'
-        });
-        if (!r.ok) throw 0;
-        const html = await r.text();
-        el.innerHTML = html;
-        cache[page] = html;
-      } catch {
-        el.innerHTML = `<div class="error-state"><div class="err-ico">⚠</div><div class="err-txt">File <strong>${page}</strong> tidak ditemukan.<br>Pastikan file tersedia.</div></div>`;
+      /* ambil HTML */
+      let rawHtml = cache[page];
+      if (!rawHtml) {
+        try {
+          const r = await fetch(page, {
+            cache: 'default'
+          });
+          if (!r.ok) throw 0;
+          rawHtml = await r.text();
+          cache[page] = rawHtml;
+        } catch {
+          cfLoad.classList.remove('show');
+          cfFrame.style.opacity = '1';
+          /* tulis error langsung ke iframe */
+          const edoc = cfFrame.contentDocument || cfFrame.contentWindow.document;
+          edoc.open();
+          edoc.write(`<!DOCTYPE html><html><head>${INJECT_CSS}</head><body>
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100px;gap:10px;padding:24px;">
+              <div style="font-size:28px;opacity:.4;">⚠</div>
+              <p style="text-align:center;color:#4A4D57;">File <strong>${page}</strong> tidak ditemukan.<br>Pastikan file tersedia.</p>
+            </div></body></html>`);
+          edoc.close();
+          cfFrame.style.height = '140px';
+          return;
+        }
       }
+      /* inject CSS ke dalam rawHtml */
+      let injected = rawHtml;
+      if (injected.includes('</head>')) {
+        injected = injected.replace('</head>', INJECT_CSS + '</head>');
+      } else {
+        injected = INJECT_CSS + injected;
+      }
+      /* tulis ke iframe */
+      const idoc = cfFrame.contentDocument || cfFrame.contentWindow.document;
+      idoc.open();
+      idoc.write(injected);
+      idoc.close();
+      /* tunggu load lalu resize */
+      cfFrame.onload = () => {
+        cfLoad.classList.remove('show');
+        cfFrame.style.opacity = '1';
+        /* resize awal */
+        resizeFrame();
+        /* pasang ResizeObserver dan MutationObserver di dalam iframe
+           agar otomatis resize jika konten berubah (gambar muncul, script jalan) */
+        try {
+          const iwin = cfFrame.contentWindow;
+          const ibody = idoc.body;
+          /* observer gambar-gambar yang belum selesai load */
+          const imgs = ibody.querySelectorAll('img');
+          let loaded = 0;
+          if (imgs.length > 0) {
+            imgs.forEach(img => {
+              if (img.complete) {
+                loaded++;
+                if (loaded === imgs.length) resizeFrame();
+              } else img.addEventListener('load', () => {
+                loaded++;
+                resizeFrame();
+              });
+              img.addEventListener('error', () => {
+                loaded++;
+                resizeFrame();
+              });
+            });
+          }
+          /* MutationObserver untuk konten dinamis (document.write, dll) */
+          const mo = new MutationObserver(() => resizeFrame());
+          mo.observe(ibody, {
+            childList: true,
+            subtree: true,
+            attributes: true
+          });
+          /* fallback resize berkala selama 3 detik */
+          let ticks = 0;
+          const iv = setInterval(() => {
+            resizeFrame();
+            ticks++;
+            if (ticks > 6) clearInterval(iv);
+          }, 500);
+          /* simpan observer agar bisa di-disconnect nanti */
+          resizeObs = mo;
+          /* scroll halaman utama ke area content setelah load */
+          cfWrap.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        } catch (e) {
+          resizeFrame();
+        }
+      };
     }
     if ('serviceWorker' in navigator)
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
