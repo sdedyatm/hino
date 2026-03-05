@@ -7,10 +7,10 @@
   <meta name="theme-color" content="#080A0F" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="SPA Premium" />
+  <meta name="apple-mobile-web-app-title" content="ATM Device" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="description" content="Platform premium untuk biodata, grafik, dan navigasi" />
-  <title>SPA Premium</title>
+  <meta name="description" content="CV Amelia Trans Mandiri — ATM Device HMSI" />
+  <title>ATM Device HMSI</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,10 +29,13 @@
       --text-3: #4A4D57;
       --border: rgba(201, 168, 76, 0.18);
       --border-hi: rgba(201, 168, 76, 0.55);
-      --r-card: 18px;
-      --r-btn: 14px;
+      --r-card: 16px;
+      --r-btn: 12px;
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bot: env(safe-area-inset-bottom, 0px);
+      --fs-xs: clamp(9px, 2.2vw, 11px);
+      --fs-sm: clamp(11px, 2.8vw, 13px);
+      --fs-lg: clamp(26px, 7vw, 40px);
     }
 
     *,
@@ -54,13 +57,13 @@
       color: var(--text-1);
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
+      font-size: var(--fs-sm);
       min-height: 100dvh;
       overflow-x: hidden;
       overscroll-behavior-y: none;
       padding-top: var(--safe-top);
     }
 
-    /* ── Atmosphere ── */
     .atmo {
       position: fixed;
       inset: 0;
@@ -97,45 +100,49 @@
       opacity: .5;
     }
 
-    /* ── Scaffold ── */
+    /* SCAFFOLD */
     .page {
       position: relative;
       z-index: 2;
       display: flex;
       flex-direction: column;
       min-height: 100dvh;
+      width: 100%;
       max-width: 480px;
       margin: 0 auto;
-      padding: 0 16px calc(var(--safe-bot) + 70px);
+      padding: 0 14px calc(var(--safe-bot) + 62px);
+      overflow-x: hidden;
     }
 
-    /* ── Header ── */
+    /* HEADER */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0 14px;
+      padding: 14px 0 12px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
+      width: 100%;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
+      min-width: 0;
     }
 
     .logo-ring {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
       border-radius: 50%;
       border: 1.5px solid var(--gold);
       background: radial-gradient(circle at 35% 35%, rgba(201, 168, 76, 0.18), transparent 60%);
-      box-shadow: 0 0 16px rgba(201, 168, 76, 0.18);
+      box-shadow: 0 0 14px rgba(201, 168, 76, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
       position: relative;
     }
 
@@ -148,49 +155,56 @@
     }
 
     .logo-gem {
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       background: var(--gold);
       clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
     }
 
     .logo-img {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--gold);
-      box-shadow: 0 0 16px rgba(201, 168, 76, 0.2);
+      box-shadow: 0 0 14px rgba(201, 168, 76, 0.2);
       display: none;
     }
 
     .brand-info {
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
 
     .brand-name {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
-      font-size: 17px;
+      font-size: clamp(15px, 4vw, 18px);
       letter-spacing: .06em;
       line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .brand-sub {
-      font-size: 9px;
+      font-size: var(--fs-xs);
       font-weight: 500;
-      letter-spacing: .26em;
+      letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--gold);
       margin-top: 3px;
+      white-space: nowrap;
     }
 
     .live-badge {
       display: flex;
       align-items: center;
       gap: 5px;
-      padding: 5px 11px;
+      flex-shrink: 0;
+      padding: 5px 10px;
       border: 1px solid var(--border);
       border-radius: 100px;
       background: var(--surface);
@@ -219,27 +233,27 @@
     }
 
     .live-txt {
-      font-size: 10px;
-      letter-spacing: .14em;
+      font-size: var(--fs-xs);
+      letter-spacing: .12em;
       color: var(--text-2);
     }
 
-    /* ── Hero ── */
+    /* HERO */
     .hero {
       text-align: center;
-      padding: 24px 0 16px;
+      padding: 20px 0 14px;
       flex-shrink: 0;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .ey-line {
-      width: 26px;
+      width: 22px;
       height: 1px;
       background: linear-gradient(to right, transparent, var(--gold));
     }
@@ -249,20 +263,19 @@
     }
 
     .ey-txt {
-      font-size: 9px;
+      font-size: var(--fs-xs);
       font-weight: 500;
-      letter-spacing: .3em;
+      letter-spacing: .24em;
       text-transform: uppercase;
       color: var(--gold);
     }
 
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 7.5vw, 42px);
+      font-size: var(--fs-lg);
       font-weight: 300;
       line-height: 1.1;
       color: var(--text-1);
-      margin-bottom: 10px;
     }
 
     .hero-title em {
@@ -270,49 +283,44 @@
       color: var(--gold-light);
     }
 
-    .hero-sub {
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--text-2);
-      letter-spacing: .02em;
-    }
-
-    /* ── Ticker ── */
+    /* TICKER */
     .ticker-wrap {
       flex-shrink: 0;
-      margin: 6px 0 16px;
+      margin: 6px 0 14px;
+      width: 100%;
+      overflow: hidden;
     }
 
     .t-border {
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border-hi), transparent);
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .t-border.b {
-      margin-top: 8px;
+      margin-top: 7px;
       margin-bottom: 0;
     }
 
     .t-track {
       overflow: hidden;
+      width: 100%;
     }
 
     .t-inner {
       display: inline-flex;
       white-space: nowrap;
-      animation: ticker 22s linear infinite;
+      animation: ticker 28s linear infinite;
     }
 
     .t-item {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding-right: 36px;
-      font-size: 10px;
+      gap: 10px;
+      padding-right: 30px;
+      font-size: var(--fs-xs);
       font-weight: 400;
-      letter-spacing: .18em;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--text-3);
     }
@@ -332,16 +340,17 @@
       }
     }
 
-    /* ── Install Banner ── */
+    /* INSTALL BANNER */
     .install-banner {
       display: none;
       flex-shrink: 0;
+      width: 100%;
       background: var(--surface-2);
       border: 1px solid var(--border-hi);
       border-radius: var(--r-btn);
-      padding: 11px 13px;
-      margin-bottom: 14px;
-      gap: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      gap: 9px;
       align-items: center;
     }
 
@@ -350,61 +359,62 @@
     }
 
     .install-ico {
-      font-size: 20px;
+      font-size: 18px;
       flex-shrink: 0;
     }
 
     .install-info {
       flex: 1;
+      min-width: 0;
     }
 
     .install-title {
-      font-size: 13px;
+      font-size: var(--fs-sm);
       font-weight: 500;
       color: var(--text-1);
     }
 
     .install-sub {
-      font-size: 10px;
+      font-size: var(--fs-xs);
       color: var(--text-2);
-      letter-spacing: .04em;
       margin-top: 2px;
     }
 
     .install-btn {
+      flex-shrink: 0;
       background: var(--gold);
       color: var(--deep);
       border: none;
       border-radius: 8px;
-      padding: 7px 14px;
-      font-size: 11px;
+      padding: 6px 12px;
+      font-size: var(--fs-xs);
       font-weight: 500;
       letter-spacing: .08em;
       cursor: pointer;
-      flex-shrink: 0;
     }
 
     .install-x {
+      flex-shrink: 0;
       background: none;
       border: none;
       color: var(--text-3);
       font-size: 16px;
       cursor: pointer;
-      flex-shrink: 0;
       padding: 2px 4px;
     }
 
-    /* ── Gallery ── */
+    /* GALLERY */
     .gallery-section {
       flex-shrink: 0;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
+      width: 100%;
     }
 
     .gallery-label {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 7px;
+      margin-bottom: 9px;
     }
 
     .gl-line {
@@ -414,8 +424,8 @@
     }
 
     .gl-txt {
-      font-size: 9px;
-      letter-spacing: .24em;
+      font-size: var(--fs-xs);
+      letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--text-3);
       font-weight: 500;
@@ -477,7 +487,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(8, 10, 15, .78) 100%);
+      background: linear-gradient(to bottom, transparent 50%, rgba(8, 10, 15, .8) 100%);
       pointer-events: none;
     }
 
@@ -486,13 +496,13 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 14px 16px 12px;
+      padding: 12px 14px 10px;
       z-index: 2;
     }
 
     .slide-cap-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 16px;
+      font-size: clamp(14px, 3.8vw, 17px);
       font-weight: 400;
       letter-spacing: .04em;
       color: var(--text-1);
@@ -500,13 +510,12 @@
     }
 
     .slide-cap-sub {
-      font-size: 10px;
+      font-size: var(--fs-xs);
       color: var(--text-2);
       letter-spacing: .1em;
-      margin-top: 3px;
+      margin-top: 2px;
     }
 
-    /* Swipe Hint */
     .swipe-hint {
       position: absolute;
       inset: 0;
@@ -541,13 +550,13 @@
     .hint-pill {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       background: rgba(8, 10, 15, .72);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--border-hi);
       border-radius: 100px;
-      padding: 9px 18px;
+      padding: 8px 16px;
     }
 
     .hint-arr {
@@ -556,8 +565,8 @@
     }
 
     .hint-arr svg {
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       stroke: var(--gold);
       fill: none;
       stroke-width: 2;
@@ -602,25 +611,24 @@
     }
 
     .hint-lbl {
-      font-size: 11px;
+      font-size: var(--fs-xs);
       font-weight: 400;
       letter-spacing: .12em;
       color: var(--text-1);
     }
 
-    /* Counter */
     .gallery-ctr {
       position: absolute;
-      top: 10px;
-      right: 12px;
+      top: 9px;
+      right: 10px;
       z-index: 5;
       background: rgba(8, 10, 15, .65);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       border-radius: 100px;
-      padding: 4px 10px;
-      font-size: 10px;
+      padding: 3px 9px;
+      font-size: var(--fs-xs);
       letter-spacing: .1em;
       color: var(--text-2);
     }
@@ -630,13 +638,12 @@
       font-weight: 500;
     }
 
-    /* Dots */
     .gallery-dots {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 6px;
-      margin-top: 10px;
+      margin-top: 9px;
     }
 
     .dot {
@@ -644,17 +651,16 @@
       height: 5px;
       border-radius: 50%;
       background: var(--text-3);
-      transition: all .3s ease;
+      transition: all .3s;
       cursor: pointer;
     }
 
     .dot.active {
       background: var(--gold);
-      transform: scale(1.4);
-      box-shadow: 0 0 8px rgba(201, 168, 76, .5);
+      transform: scale(1.45);
+      box-shadow: 0 0 7px rgba(201, 168, 76, .55);
     }
 
-    /* Skeleton */
     .skel {
       position: absolute;
       inset: 0;
@@ -673,28 +679,30 @@
       }
     }
 
-    /* ── Nav Tabs ── */
+    /* NAV TABS */
     .nav-tabs {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 7px;
       flex-shrink: 0;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      width: 100%;
     }
 
     .nav-tab {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--r-btn);
-      padding: 13px 8px;
+      padding: 11px 6px;
       cursor: pointer;
       transition: all .28s cubic-bezier(.25, .46, .45, .94);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       position: relative;
       overflow: hidden;
+      min-width: 0;
     }
 
     .nav-tab::before {
@@ -707,7 +715,7 @@
       background: linear-gradient(to right, var(--gold), var(--gold-light));
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform .3s ease;
+      transition: transform .3s;
     }
 
     .nav-tab:hover,
@@ -715,7 +723,7 @@
       border-color: var(--border-hi);
       background: var(--surface-2);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
     }
 
     .nav-tab:hover::before,
@@ -724,14 +732,15 @@
     }
 
     .tab-ico {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
       background: var(--surface-3);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background .28s;
+      flex-shrink: 0;
     }
 
     .nav-tab:hover .tab-ico,
@@ -740,8 +749,8 @@
     }
 
     .tab-ico svg {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
       stroke: var(--text-3);
       fill: none;
       stroke-width: 1.5;
@@ -756,12 +765,13 @@
     }
 
     .tab-lbl {
-      font-size: 10px;
+      font-size: var(--fs-xs);
       font-weight: 500;
-      letter-spacing: .16em;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--text-3);
       transition: color .28s;
+      white-space: nowrap;
     }
 
     .nav-tab:hover .tab-lbl,
@@ -769,12 +779,12 @@
       color: var(--gold-light);
     }
 
-    /* ── Divider ── */
+    /* DIVIDER */
     .divider {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin: 0 0 14px;
+      gap: 12px;
+      margin: 0 0 12px;
       flex-shrink: 0;
     }
 
@@ -792,17 +802,22 @@
       opacity: .45;
     }
 
-    /* ── Content ── */
+    /* CONTENT AREA — tinggi auto sesuai isi */
     #content {
-      flex: 1;
-      min-height: 140px;
+      width: 100%;
+      height: auto;
+      /* membesar sesuai konten */
+      min-height: 80px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--r-card);
-      padding: 22px 16px;
+      padding: 18px 14px;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      /* cegah melebar ke samping */
+      overflow-y: visible;
       margin-bottom: 8px;
+      word-break: break-word;
     }
 
     #content::before {
@@ -815,19 +830,51 @@
       background: linear-gradient(to right, transparent, rgba(201, 168, 76, .35), transparent);
     }
 
+    /* semua elemen dalam content tidak boleh overflow */
+    #content * {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    #content img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #content table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: var(--fs-sm);
+    }
+
+    #content td,
+    #content th {
+      word-break: break-word;
+      padding: 6px 4px;
+    }
+
+    #content iframe,
+    #content video,
+    #content canvas {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
     .loading-state {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 110px;
-      gap: 14px;
+      min-height: 80px;
+      gap: 12px;
     }
 
     .rings {
       position: relative;
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
     }
 
     .rings span {
@@ -853,7 +900,7 @@
     }
 
     .loading-txt {
-      font-size: 11px;
+      font-size: var(--fs-xs);
       letter-spacing: .2em;
       text-transform: uppercase;
       color: var(--text-3);
@@ -864,23 +911,23 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 110px;
-      gap: 10px;
+      min-height: 80px;
+      gap: 9px;
     }
 
     .err-ico {
-      font-size: 26px;
+      font-size: 24px;
       opacity: .4;
     }
 
     .err-txt {
-      font-size: 12px;
+      font-size: var(--fs-sm);
       color: var(--text-3);
       text-align: center;
       line-height: 1.6;
     }
 
-    /* ── Footer ── */
+    /* FOOTER */
     .footer {
       position: fixed;
       bottom: 0;
@@ -897,7 +944,7 @@
     .footer-inner {
       max-width: 480px;
       margin: 0 auto;
-      padding: 12px 20px;
+      padding: 11px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -906,7 +953,7 @@
     .f-left {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
 
     .f-dot {
@@ -918,13 +965,13 @@
     }
 
     .f-copy {
-      font-size: 10px;
+      font-size: var(--fs-xs);
       letter-spacing: .1em;
       color: var(--text-3);
     }
 
     .f-year {
-      font-size: 10px;
+      font-size: var(--fs-xs);
       color: var(--gold);
       opacity: .65;
       letter-spacing: .1em;
@@ -935,10 +982,8 @@
 <body>
   <div class="atmo"></div>
   <div class="noise"></div>
-
   <div class="page">
 
-    <!-- Header -->
     <header class="header">
       <div class="brand">
         <div class="logo-ring" id="logoRing">
@@ -951,26 +996,33 @@
         </div>
       </div>
       <div class="live-badge">
-        <div class="live-dot"></div>
-        <span class="live-txt">Live</span>
+        <div class="live-dot"></div><span class="live-txt">Live</span>
       </div>
     </header>
 
-    <!-- Hero -->
     <div class="hero">
       <div class="eyebrow">
         <div class="ey-line"></div>
-        <span class="ey-txt">CV AMELIA TRANS MANDIRI</span>
+        <span class="ey-txt">CV Amelia Trans Mandiri</span>
         <div class="ey-line r"></div>
       </div>
       <h1 class="hero-title">Jelajah <em>Penjuru</em><br>Indonesia</h1>
     </div>
 
-    <!-- Ticker -->
     <div class="ticker-wrap">
       <div class="t-border"></div>
       <div class="t-track">
         <div class="t-inner">
+          <div class="t-item">HINO RM280 ABS <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO FL260JW <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO FG235JJ <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO FM260JD <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO RK280 ABS <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO SG260TH <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO FL235JW <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO FM285JD <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO GB150 <span class="t-sep">◆</span></div>
+          <div class="t-item">HINO Dutro 130HD <span class="t-sep">◆</span></div>
           <div class="t-item">HINO RM280 ABS <span class="t-sep">◆</span></div>
           <div class="t-item">HINO FL260JW <span class="t-sep">◆</span></div>
           <div class="t-item">HINO FG235JJ <span class="t-sep">◆</span></div>
@@ -986,7 +1038,6 @@
       <div class="t-border b"></div>
     </div>
 
-    <!-- Install Banner -->
     <div class="install-banner" id="installBanner">
       <span class="install-ico">📲</span>
       <div class="install-info">
@@ -997,69 +1048,50 @@
       <button class="install-x" id="dismissBanner">✕</button>
     </div>
 
-    <!-- Gallery -->
     <div class="gallery-section">
       <div class="gallery-label">
         <div class="gl-line"></div>
-        <span class="gl-txt">Galeri</span>
+        <span class="gl-txt">Galeri Armada</span>
         <div class="gl-diamond"></div>
         <div class="gl-line"></div>
       </div>
-
       <div class="gallery-frame" id="galleryFrame">
         <div class="slides-track" id="slidesTrack"></div>
-
-        <div class="gallery-ctr">
-          <span class="ctr-cur" id="ctrCur">1</span>/<span id="ctrTotal">5</span>
-        </div>
-
-        <!-- Swipe Hint -->
+        <div class="gallery-ctr"><span class="ctr-cur" id="ctrCur">1</span>/<span id="ctrTotal">6</span></div>
         <div class="swipe-hint">
           <div class="hint-pill">
-            <div class="hint-arr l">
-              <svg viewBox="0 0 24 24">
+            <div class="hint-arr l"><svg viewBox="0 0 24 24">
                 <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </div>
+              </svg></div>
             <span class="hint-lbl">Sapu untuk melihat</span>
-            <div class="hint-arr r">
-              <svg viewBox="0 0 24 24">
+            <div class="hint-arr r"><svg viewBox="0 0 24 24">
                 <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </div>
+              </svg></div>
           </div>
         </div>
       </div>
-
       <div class="gallery-dots" id="galleryDots"></div>
     </div>
 
-    <!-- Nav Tabs -->
     <div class="nav-tabs">
       <button class="nav-tab" onclick="loadContent('biodata.html',this)">
-        <div class="tab-ico">
-          <svg viewBox="0 0 24 24">
+        <div class="tab-ico"><svg viewBox="0 0 24 24">
             <circle cx="12" cy="8" r="4" />
             <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-          </svg>
-        </div>
+          </svg></div>
         <span class="tab-lbl">Biodata</span>
       </button>
       <button class="nav-tab" onclick="loadContent('grafik.html',this)">
-        <div class="tab-ico">
-          <svg viewBox="0 0 24 24">
+        <div class="tab-ico"><svg viewBox="0 0 24 24">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-          </svg>
-        </div>
+          </svg></div>
         <span class="tab-lbl">Grafik</span>
       </button>
       <button class="nav-tab" onclick="loadContent('maps.html',this)">
-        <div class="tab-ico">
-          <svg viewBox="0 0 24 24">
+        <div class="tab-ico"><svg viewBox="0 0 24 24">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
             <circle cx="12" cy="10" r="3" />
-          </svg>
-        </div>
+          </svg></div>
         <span class="tab-lbl">Maps</span>
       </button>
     </div>
@@ -1070,32 +1102,23 @@
       <div class="div-line"></div>
     </div>
 
-    <!-- Content -->
-    <div id="content">
-      <div style="min-height:110px;"></div>
-    </div>
-
+    <div id="content"></div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="f-left">
-        <div class="f-dot"></div>
-        <span class="f-copy">Atm Device HMSI</span>
+        <div class="f-dot"></div><span class="f-copy">ATM Device HMSI</span>
       </div>
+      <span class="f-year">© 2025</span>
     </div>
   </footer>
 
   <script>
-    /* ─────────────────────────────────────────
-       GALLERY DATA
-       Ganti URL dengan gambar Anda sendiri
-    ───────────────────────────────────────── */
     const IMAGES = [{
         src: 'https://www.hino.co.id//assets/uploads/products/FM_340_TH_ABS_(1).png',
         title: 'HINO FM340TH',
-        sub: 'TRACKTORHEAD'
+        sub: 'TRACTOR HEAD'
       },
       {
         src: 'https://www.hino.co.id//assets/uploads/products/FM340PD_(1).png',
@@ -1105,7 +1128,7 @@
       {
         src: 'https://www.hino.co.id//assets/uploads/products/FG260TH_(1).png',
         title: 'HINO FG260TH',
-        sub: 'TRACKTORHEAD'
+        sub: 'TRACTOR HEAD'
       },
       {
         src: 'https://www.hino.co.id//assets/uploads/products/Ranger_FL1.png',
@@ -1123,35 +1146,28 @@
         sub: 'BUS'
       }
     ];
-    /* ─────────────────────────────────────────
-       GALLERY ENGINE
-    ───────────────────────────────────────── */
-    const track = document.getElementById('slidesTrack');
-    const dotsEl = document.getElementById('galleryDots');
-    const ctrCur = document.getElementById('ctrCur');
-    const ctrTotal = document.getElementById('ctrTotal');
-    const frame = document.getElementById('galleryFrame');
-    const total = IMAGES.length;
+    const track = document.getElementById('slidesTrack'),
+      dotsEl = document.getElementById('galleryDots'),
+      ctrCur = document.getElementById('ctrCur'),
+      ctrTot = document.getElementById('ctrTotal'),
+      frame = document.getElementById('galleryFrame'),
+      total = IMAGES.length;
     let cur = 0,
       startX = 0,
       startY = 0,
       dragging = false,
       delta = 0;
-    ctrTotal.textContent = total;
+    ctrTot.textContent = total;
 
     function buildSlides() {
       IMAGES.forEach((img, i) => {
         const s = document.createElement('div');
         s.className = 'slide';
-        s.innerHTML = `
-          <div class="skel" id="skel${i}"></div>
-          <img src="${img.src}" alt="${img.title}"
-               style="position:absolute;inset:0;opacity:0;transition:opacity .45s;"
-               onload="document.getElementById('skel${i}').style.display='none';this.style.opacity=1;">
-          <div class="slide-cap">
-            <div class="slide-cap-title">${img.title}</div>
-            <div class="slide-cap-sub">${img.sub}</div>
-          </div>`;
+        s.innerHTML = `<div class="skel" id="sk${i}"></div>
+          <img src="${img.src}" alt="${img.title}" style="position:absolute;inset:0;opacity:0;transition:opacity .45s;"
+               onload="document.getElementById('sk${i}').style.display='none';this.style.opacity=1;"
+               onerror="document.getElementById('sk${i}').style.background='#1C2230';">
+          <div class="slide-cap"><div class="slide-cap-title">${img.title}</div><div class="slide-cap-sub">${img.sub}</div></div>`;
         track.appendChild(s);
         const dot = document.createElement('div');
         dot.className = 'dot' + (i === 0 ? ' active' : '');
@@ -1165,28 +1181,23 @@
       cur = ((idx % total) + total) % total;
       track.style.transform = `translateX(-${cur*100}%)`;
       if (!anim) requestAnimationFrame(() => track.classList.remove('no-t'));
-      syncUI();
-    }
-
-    function syncUI() {
       ctrCur.textContent = cur + 1;
       dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
     }
-    /* Touch */
     frame.addEventListener('touchstart', e => {
       dragging = true;
       delta = 0;
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       track.classList.add('no-t');
-      clearInterval(auto);
+      clearInterval(autoTimer);
     }, {
       passive: true
     });
     frame.addEventListener('touchmove', e => {
       if (!dragging) return;
-      const dx = e.touches[0].clientX - startX;
-      const dy = e.touches[0].clientY - startY;
+      const dx = e.touches[0].clientX - startX,
+        dy = e.touches[0].clientY - startY;
       if (Math.abs(dy) > Math.abs(dx) + 8) {
         dragging = false;
         track.classList.remove('no-t');
@@ -1198,7 +1209,6 @@
       passive: true
     });
     frame.addEventListener('touchend', endDrag);
-    /* Mouse */
     frame.addEventListener('mousedown', e => {
       dragging = true;
       delta = 0;
@@ -1218,24 +1228,20 @@
       if (!dragging) return;
       dragging = false;
       track.classList.remove('no-t');
-      const thresh = frame.offsetWidth * 0.22;
-      if (delta < -thresh) goto(cur + 1);
-      else if (delta > thresh) goto(cur - 1);
+      const th = frame.offsetWidth * 0.22;
+      if (delta < -th) goto(cur + 1);
+      else if (delta > th) goto(cur - 1);
       else goto(cur);
     }
-    /* Auto-advance */
-    let auto = setInterval(() => goto(cur + 1), 5200);
+    let autoTimer = setInterval(() => goto(cur + 1), 5200);
     buildSlides();
     goto(0, false);
-    /* ─────────────────────────────────────────
-       CONTENT LOADER
-    ───────────────────────────────────────── */
     const cache = {};
     async function loadContent(page, tabEl) {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       if (tabEl) tabEl.classList.add('active');
       const el = document.getElementById('content');
-      el.innerHTML = `<div class="loading-state"><div class="rings"><span></span><span></span></div><span class="loading-txt">Memuat…</span></div>`;
+      el.innerHTML = '<div class="loading-state"><div class="rings"><span></span><span></span></div><span class="loading-txt">Memuat…</span></div>';
       if (cache[page]) {
         el.innerHTML = cache[page];
         return;
@@ -1252,15 +1258,8 @@
         el.innerHTML = `<div class="error-state"><div class="err-ico">⚠</div><div class="err-txt">File <strong>${page}</strong> tidak ditemukan.<br>Pastikan file tersedia.</div></div>`;
       }
     }
-    /* ─────────────────────────────────────────
-       PWA — Service Worker
-    ───────────────────────────────────────── */
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator)
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-    }
-    /* ─────────────────────────────────────────
-       PWA — Install Prompt
-    ───────────────────────────────────────── */
     let deferredPrompt = null;
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
@@ -1274,12 +1273,8 @@
       deferredPrompt = null;
       document.getElementById('installBanner').classList.remove('show');
     });
-    document.getElementById('dismissBanner').addEventListener('click', () => {
-      document.getElementById('installBanner').classList.remove('show');
-    });
-    window.addEventListener('appinstalled', () => {
-      document.getElementById('installBanner').classList.remove('show');
-    });
+    document.getElementById('dismissBanner').addEventListener('click', () => document.getElementById('installBanner').classList.remove('show'));
+    window.addEventListener('appinstalled', () => document.getElementById('installBanner').classList.remove('show'));
   </script>
 </body>
 
