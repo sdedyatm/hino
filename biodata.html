@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="description" content="Aplikasi Device Hmsi">
+  <meta name="keywords" content="sdedyatm,atm,hmsi,hino">
+  <meta name="author" content="sdedyatm">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Device Hmsi</title>
+  <style>
+    html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      /* Diubah dari center agar konten mulai dari atas */
+      height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      /* Kunci untuk smooth scroll di iframe mobile */
+      background-color: #000;
+      color: grey;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      font-family: 'Gemina3D', sans-serif;
+      font-size: 28px;
+      color: #222;
+      text-align: center;
+      text-shadow:
+        1px 1px 0 #fff,
+        -1px -1px 0 #fff,
+        2px 2px 3px #FFD700,
+        3px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #photo-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .photo-item {
+      position: relative;
+      flex: 1;
+      min-width: calc(25% - 10px);
+      margin: 5px;
+      border-radius: 15px;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .photo-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .photo-item p {
+      text-align: center;
+      margin: 10px 0;
+      color: #0074cc;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    h3 {
+      padding: 0px;
+      margin: 0;
+      color: #fff;
+      font-size: 1.5em;
+      text-shadow: 2px 2px 2px #000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Biodata Device Hmsi</h1>
+
+  <div id="photo-container">
+    <script>
+      var photoUrls = [
+        "https://lh3.googleusercontent.com/pw/AP1GczMQ4u3Ixs6bHu4-2kpZA0l4lXJ9oe4MzPvGQxW2Ror7mKx7umAJJWuFMaaFmrv0YoLcW4cDXtu8H1xdS-88jMCEq1xaz8x6jMsaatZk1QoWTf6aDZHSS47vt_oPNdVDF31gabuisve3ZPRZ3cjEZvtMNA=w713-h511-s-no-gm?authuser=0", "https://lh3.googleusercontent.com/pw/ABLVV84l8scafSEFfzKvbg0T0VBt9f0FyG_NWhw6Ve1KyHeRj5QaOodyyuNr5S_0DSmpItfnYoSJKfeJKCus4y3qEvGWsUh1ldyMoZmHuP8pZBJO34IOvyA1folQbuqeDxGfrbydA_KbXTXV9H8YWBpyKAUV1w=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV84ByI4trYnoXu-_JVxxJ3nWRxJtiVWVIAFI5cq1NU5ktWN9ruuakiIVfre0G5jA_CLXsidD3GTiVGTpbRxORAbmi6HREVXn3wq1Bgdbz6zAe-eOYSko3MBfNFUi3Sk91vkh1lDt4sXgsQ0pb57oA_sxng=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczPAA1Pqg9EAvrU0spmQR89A_YR1yAFg-Ess4MgCIwqDgRCMybu6G2SviDacAuISc7EO2nG7zSBv9PpHR0YnOTarv797cFuyJ3cOj5UppQE939HGvGxnCDrbyTq0GiRtxiiS-UNAFH-acE2JwnoviQ2HdA=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV87DfvpiskkDs5NwFJ89g448n4HFyN5uyTLANfCUcL-QLZpbNzXFAP0E5Yr7ugReBbnZtQCNS0aAMv3K6JJbphfmF_mqav0xuJ2zObPmE8ZsTUEtoMvMgxF-KaJZOO-dJEFQt2Qs4G6P5AN0_9UjF1RaeA=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczP4_HcV_NCWuIp4xuNGDYr_8K_OnuDnMbqXL-ComBkQAZSlqAWK3joKsxWApQYwrHhSZhiQxACutzge4iuiSt5tTe2GBRKzPUttan0qontQKTYI2rVbDsqPsWs34f-TL56XSrTnPNnAK3nNkC7t4v-LCA=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV87aKSlCN76aY8Bz5HqteDLZkuO2zEx-orvoMpKT82xOrVmPYfB1o5NZuZ1aieZ19k6kZU9spUSSkxufJICUwp3fSmaDLUbbW_lxLh0uvqQmdfsmr9KtkDspsG3wiyDmaea5BjJSIyOAlF0fDOI1UXGecQ=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV87gWhOYO1KPu-boG02OElPRcUVLkXrQvR1ZaOcC2Q1uq0-ejrkR2Rg3coyHIb3S3FOhQkPQ-S0IFUqghM4G6KVhMiQTnNOEd38aT9Du9-3-COm1DpAakik0gQovyyjMfM2w97Uactyx8xBxfvAF49PpQQ=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV86PddFNzwPKLfsQwmn-iOFH0MO_lG6QjQxZSIUdPc5FY8phpLa_APuSBTW9ntEsBjmF5knWrregcXmBUxe--TGdM8M88EplYzEXhBK0AUFkGUzmLmKqv6tnFmePcnwdbZQqnCVF04bP_amRUMwNKcusiQ=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV87CrAzjwxXYEg5EyyYw4-MCPU8PZ351aNEsJqNAWmz8Q3wZXmodKpIjXpplNzRb0lTJZtqJXiopJ5cL6ccBZ3xbQxeiJk87ZC83ICnHCKTuRCXehHOzmrNMZxzEMhpiV8HJ4Zce6Fhxhn_ugNT1CdNOkA=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV869p4n5VrS9uqOPivym5F7K_2Z-TMdC-HNJREbSh14Xfd5GKlTJHwUEf5uQxQMf_rzja6UFxIfbw4p2LjnZL-W4tPVnAUECRfli4gOg6A8a3QTrgx0wbJIRJc4NCaHECZCeEfLQ2u3gkrcWk0g-m7LJpw=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV84hztIkLdnwPsWAlR4TNf8x7XZmyPsYSEL_5a_VvQkvXPr3qpgAN8wtsRx1QGJL3V-BIICbr2k_xShIk7nf0EAqtSBM4mCLQ7t4F5dO0FeOIAOYNJYPxqfOWAiOdCgZtihnKIOcffQsLUIU6TLExRl_4A=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV84lDsrew_dOpik5micR9CPJO48134Sqr7xjaI8vIm-4kAYOqNWIBrtO3XQ_Vr6tzLM4Z4MAb4fA4IfUcTQnzCHCxUcs_sikYQ7lv9yF3O9gwN6PXnqqHCb1mcU4xC_0IAugAqDY3gFf56QQc2XyUZji8w=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV87ArRz2yagleP-tBgJfexIPlOQ0NU2xH_pJLFRLbZzieBC5f4yIWFsRm3hgaW8YtYbbcS34WSuGm3PGPv9Tp-JEj7gT5YMH9W2KMOFpQ-DUGecwUYsD4CaNe8SWr8ar1jYBkfTxb59xymXBewTN3O-Ytg=w607-h607-s-no-gm?authuser=0", "https://lh3.googleusercontent.com/pw/ABLVV86OhPWEj_efjyrqQD9UnXzjnLXlwQeqzeaikiaEdduxfUFglj3pUqHb1zjMfWD2HRs2_CKqP54jIyeZBiha8BguQ07gW8SCv2FFwZFwf8iFyu2GWCkerVhtGPO0Z8wBjmVZIJO4AQmVBt20uTf309Q7sw=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV84aQk04uF9cv-oRnDyF3eIcOSQzTZyKoKgPOgyGuayiJWU1dO4QOmUL1Xmg7PkfFTP9m1XaCCraJGUufXpGeww7Ra3gCqLZH5RPd1hDRzDXAOg8GbnRRPiHeyxzofoid3thFDZtALcatTNEEB4eCeVxqA=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV84i5f4QcSrB85BcWYs2efgFXsvulsFMWN4X5lFHx5vqhhIEyZmePcVD2ua-kLqFMXdEZgrxLvjIGKEsV1tiqxQGLRkpyqbIqucTmxZGoiByfiM5I8WavgOqH-khQvQ1eX4Xl4udCl5ue7T6DAJeVoWooA=w607-h607-s-no-gm?authuser=0", "https://lh3.googleusercontent.com/pw/ABLVV86M_f7mq4fgMzH4ANVlTLQc1GOqw2nRQnK6hvLONoSF3hFldmcl_6iKlHp_OF602VvZGSCegFrrvnfHH36FV37kBJ1Ubj9cY0h3nd4iFtTqihXdoQ424J02lFcZONRSe3H8HEQUbo8L7w947MxpifHqMw=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV85ca9CHv6zArtvVGjmyrahCSUwhLvRkQ2YxWyXL-Z6TaS5iuIOwzH4cM3wImo9lMdRUMKe2PDwBUW4saaX68G7WYfWTv3tcTQV4pg4X2yVBcAkdWPupRWBipXzkMO1iX2qQLOt6EKc77lyhqgiVB2Jmwg=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV87ik8q-dcNTWdHYC3_RFr7YXjLfpQCKAqHvhzBQNSIbBQC5QevNTnFS7Lqgvr9mdkhIkUIog_gGJsp3qjgQh8KI-CRM0LDjaD6s3M8O8vgymkrMUF6XWFGK1ybsoJ-ZS24KQgEndORP_u8NEpVHzI16lw=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV85k08jTlxiWiB_dGaePu7dYT1s68CZNMLc52tSxBOI6n-shsGFKaBprNKMpgnd_2b2l-0P-aAxESBZvQLoa7ac7Vc5kXJ15_zxMa-aW-ZM4-TNDnk2NowHSi76l__jHO4yyU4id8y4ipwD6PwFMYJOd9A=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV86lWBcuawmJ2VXJwtNHJ8-ABQDq1zvjIRxFrmuLXNImX3EKXZzLkdGs3CHltC1e0fAH6h72pY55JKmaRsH93B7ubP9Ayj8rRvHUnQ-D5PqX6wkOpMa1FHzMO_no1b6P3o5u3knP805cagbjPi57LJ4Log=w607-h607-s-no-gm?authuser=0", "https://lh3.googleusercontent.com/pw/ABLVV87Bv00NGNpAV8qw34n6GKb5_cgf3TdL68fTE7E2yjon0JYL4Ra2PTaV4ycSZyDCa_gFZAx0Tgqx87xk3akm5VDbOukGWVBE3brPk_Hm5FzC7kG0Xztc1Jbo4S37rvxQSoDjkUHfgdhl-fJKixibiP4o9g=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczNtPGRM36zuq2Ye_phoPnxki-9JNZXw8CjxinjiZ1W-3Zos9dDlARmIfGIuYkh6bulZ7IwB-oy963QTCWK0OPZa1towwRuzu2YzqZs08C_twhysQwns-XnUbuFPQkuRpl02wity6fVvruG92uMPK8MsJQ=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV85nSZR2If6TIumkKUWrIQWYk_LRDqaGvehodueVrpereKWndEqw-cGmaBuVf2Xe7K10Q6EQ1TQG5WITsynU3mMHH6QWIvOVdPF3rsxmU3mUhvzkP0LQvbi4PtXct7Cl1JeCeJ1zmum6CFRUc1Gc92uQNA=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ABLVV875q__8hp52vb9auwKfLL4wo-fFjzYYfQQIeeW66rp_UH7rA6XESIQHWbSQYmu7uRCnjaIn8IPs_aLqd0NatSzKTsakErtJLbrVMN8HC71ksNGm-xQ9uWzZOsQp7kwkil2Tmd0GbPAoKyMbkZeK5pnFgg=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczPd3Z3ycPoMrxH3h5CiitrX7xNvF38afQmNKrlNEPWNHxlFxFCNtbRwBjmsZz-oSQEwCnNXOSDJqFYTq8xXkMNUwjYYjH-jx1EBmVqDBZSEttXTYT6OVZt_dmwuXqnMcMCLPGpHbtSlw92gsHj0aWQdFQ=w607-h607-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczP5mDNUHJJ30eCBHWn5JArk0gJYmchCRU9dWspoN536n_iNf8NIptSuhDR94uZh8qIW-gh4Ft14tlgWNik_5OCtu9vg31o_nU6wpwuuS2cWC4t10BcZGFqCeCa7G8xdnRHTDXHOkE03BOMU28LfjDveJw=w684-h484-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczMUcBmrfGgkuDKaDXzEyA9420OXWzTqEo6f7yn7tadkVF-GWDivXs7r8wK4LFvUxm7VlSUcfT0rLFtOlfLN0Koawn8jwLmRcHYmr9tGOZRVjc8o9hAqzhldoQIcLOvlOHDgxFN5SC7L8_0dgFTdW-Vafw=w713-h505-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczPVZJIe-0vQ6lkBAfG4yfJsqI9wVeW_KJ2MqE-e6n5DLdrtxyOQ8H7_DLfl2uxriauZapRTCkJ74oISHY7B6Ni9_0J7ouQzcpI4cD4_1M8MiIZE_2ECjoGsT8iPaKfzcHtZSpM2bNqEeqS8Vg0UqQ5pKg=w684-h492-s-no-gm?authuser=0", "https://lh3.googleusercontent.com/pw/AP1GczNhXdwNcK15FIpQasvqE5mVYV2M7jrXECkJx5f3iU5MPEERylz_CJ5J9TBB2UIWuXxF2Mujp_kX_4X7pcqHx4cRpWvSCfeNF_YZOni2DAHk7n4cANO77kwS7iCJ_hgZaBg4ZrzF0nlpqF0phCEhyrPb1Q=w684-h489-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczM7DIcF6n6QmapKYKmLrjE1jfdzglHj5YotQm27QErAplykPvCq3qZDbhw3qfrzTenf75srCib_6DH_WMZ-9OioIbjLVf8zb9ehkfA6GeGPPTa8wYiNTO4BvdS0VnMemmusXQsUTJB_S1FvKaNr2p3BRA=w600-h600-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczM7DIcF6n6QmapKYKmLrjE1jfdzglHj5YotQm27QErAplykPvCq3qZDbhw3qfrzTenf75srCib_6DH_WMZ-9OioIbjLVf8zb9ehkfA6GeGPPTa8wYiNTO4BvdS0VnMemmusXQsUTJB_S1FvKaNr2p3BRA=w600-h600-s-no-gm?authuser=0",
+      ];
+      var popupUrls = [];
+      var photoDescriptions = [
+        "SETIAJIT SH<br>",
+        "ENDANG SUPRIYADI",
+        "ABAS HAERUDIN",
+        "ROHMAT",
+        "SUGENG RUSWANDI",
+        "WAGIO",
+        "DUDUNG KURNIA",
+        "PURWANTO",
+        "SAIFUL BAHRI",
+        "ANO SUMARNO",
+        "PETER PANJAITAN",
+        "ADE HERMAWAN",
+        "DEDY HIDAYAT",
+        "UNANG",
+        "LIYUS HIDAYAT",
+        "HENDRA MALIK",
+        "KIDI DARYONO",
+        "DARKIMAN",
+        "ENDANG",
+        "AANG SASTRADIJAYA",
+        "ARIS SUKANDAR",
+        "YANDY",
+        "ARIS SUHENDI",
+        "UDIN",
+        "GANDUL",
+        "MAWARDY",
+        "YUDI MULYADI",
+        "RADIAN",
+        "HERY PURWANTO",
+        "PRADIKA",
+        "SAFEI",
+        "AGUS",
+        "OTONG",
+      ];
+      for (let i = 0; i < photoUrls.length; i++) {
+        document.write(`
+        <div class="photo-item">
+          <img src="${photoUrls[i]}" alt="Photo ${i + 1}" onclick="openPopup(${i})">
+          <p>${photoDescriptions[i]}</p>
+        </div>
+      `);
+      }
+    </script>
+
+</body>
+
+</html>
