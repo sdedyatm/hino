@@ -1,4 +1,4 @@
-const CACHE_NAME = "spa-premium-v5";
+const CACHE_NAME = "spa-premium-v6";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
