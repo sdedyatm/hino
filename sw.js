@@ -20,6 +20,7 @@ const STATIC_ASSETS = [
   "./icon-512.png",
   "/biodata.html",
   "/grafik.html",
+   "sitemap.xml",
   "/ritasi.html"
 ];
 
